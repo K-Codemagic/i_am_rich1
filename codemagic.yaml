@@ -10,23 +10,20 @@ workflows:
         FCI_KEY_PASSWORD: mykeys # <-- Put your encrypted key alias password here
         FCI_KEY_ALIAS: mykey # <-- Put your encrypted key alias here
         PACKAGE_NAME: "kalgi.com.i_am_rich1" # <-- Put your package name here
-    scripts:
-      scripts:
+scripts:
   - name: Build Android
     script: |
       echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
-      cd android && ./gradlew assembleRelease
+      
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
-
-      email:
+    email:
         recipients:
           - kalgi@nevercode.io
          
         notify:
           success: true     # To not receive a notification when a build succeeds
           failure: false    # To not receive a notification when a build fails
-      
